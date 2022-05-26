@@ -1,0 +1,134 @@
+﻿@model IEnumerable<Sigo.Models.ConsultoriaAcessoriaViewModel>
+@{
+    ViewData["Title"] = "Lista de Contratos";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<vc:Summary></vc:Summary>
+
+<p style="display: inline-block;" supress-by-claim-name="Consultoria Acessoria" supress-by-claim-value="Adicionar">
+    @if (User.Claims.Any(x => x.Type == "Permissao" && x.Value.Split(",").Contains("PodeEscrever")))
+    {
+        <a class="btn btn-primary" asp-action="Create">Novo Contrato</a>
+    }
+    else
+    {
+        <a style="display: inline-block; cursor: not-allowed; opacity:0.4" class="btn btn-primary" asp-action="">Novo Contrato</a>
+    }
+</p>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th style="width:15%">
+                    @Html.DisplayNameFor(model => model.RazaoSocial)
+                </th>
+                <th style="width:15%">
+                    @Html.DisplayNameFor(model => model.Cnpj)
+                </th>
+                <th style="width:5%">
+                    @Html.DisplayNameFor(model => model.DataInicio)
+                </th>
+                <th style="width:5%">
+                    @Html.DisplayNameFor(model => model.DataFim)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ativo)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RazaoSocial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cnpj)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataInicio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataFim)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ativo)
+                    </td>
+                    <td class="text-right">
+                        <a class="btn btn-info" asp-controller="ConsultoriaAcessoria" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam> </a>
+                        @if (User.Claims.Any(x => x.Type == "Permissao" && x.Value.Split(",").Contains("PodeEscrever") && x.Value.Split(",").Contains("PodeExcluir")))
+                            {
+                        <a disable-by-claim-name="ConsultoriaAcessoria" disable-by-claim-value="Editar" class="btn btn-warning" asp-controller="ConsultoriaAcessoria" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam> </a>
+                        <a disable-by-claim-name="ConsultoriaAcessoria" disable-by-claim-value="Excluir" class="btn btn-danger trigger-btn" data-toggle="modal" data-target="#deleteModal" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam> </a>
+                        }
+                            else
+                            {
+                                <a style="display: inline-block; cursor: not-allowed; opacity:0.4;" class="btn btn-warning" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam> </a>
+                                <a style="display: inline-block; cursor: not-allowed; opacity:0.4;" class="btn btn-danger" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam> </a>
+                            }
+
+                        <input id="idDeletar" hidden="hidden" value="@item.Id @item.Id" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal HTML -->
+<!-- Logout Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Você tem certeza?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Você está certo que quer deletar esse registro? <br /><span class="text-danger">Isso não poderá ser desfeito.</span></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <button id="deleteItem" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-path="/ConsultoriaAcessoria/Delete/">
+                    Deletar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        var path_to_delete;
+        var root;
+        var param = $("#idDeletar").val();
+
+        $(function () {
+
+            $("#deleteItem").click(function () {
+
+                path_to_delete = $(this).data('path');
+                root = location.protocol + "//" + location.host
+
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: root + path_to_delete + '?id=' + param,
+                    dataType: "json",
+                    success: function (response) {
+                         location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+}
+

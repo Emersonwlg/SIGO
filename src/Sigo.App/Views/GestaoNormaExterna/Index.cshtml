@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Sigo.Models.NormaExternaViewModel>
+@{
+    ViewData["Title"] = "Lista de Normas Externas";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<vc:Summary></vc:Summary>
+
+<p supress-by-claim-name="Normas Internas" supress-by-claim-value="Atualizar">
+    <a class="btn btn-primary" asp-action="Index">Atualizar</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Codigo)
+                </th>
+                <th style="width:30%">
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Comite)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataPublicacao)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DataPublicacao)
+                </th>
+                <th style="width:20%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comite)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataPublicacao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataInicioValidade)
+                    </td>
+                    <td class="text-right">
+                        <a disable-by-claim-name="NormaInterna" class="btn btn-info" asp-controller="GestaoNormaExterna" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam> </a>
+                        <a disable-by-claim-name="NormaInterna" class="btn btn-danger" asp-controller="GestaoNormaExterna" asp-action="Download" asp-route-id="@item.Id"><spam class="far fa-file-pdf"></spam> </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

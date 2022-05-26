@@ -1,0 +1,66 @@
+﻿@model Sigo.Models.ConsultoriaAcessoriaViewModel
+
+@{
+    ViewData["Title"] = "Detalhe da Consultoría e Acessória - " + Model.RazaoSocial;
+}
+
+<h4 style="padding-top: 50px">@ViewData["Title"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.RazaoSocial)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.RazaoSocial)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.NomeFantasia)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.NomeFantasia)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Periodo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Periodo)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataCadastro)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataCadastro)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataInicio)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataInicio)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataFim)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataFim)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TipoNormaExterna)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TipoNormaExterna)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ativo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ativo)
+            </dd>
+        </dl>
+
+        <div>
+            <a class="btn btn-secondary" href="javascript:window.history.back();">Voltar</a>
+        </div>
+    </div>
+</div>

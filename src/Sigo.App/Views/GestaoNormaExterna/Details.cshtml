@@ -1,0 +1,66 @@
+﻿@model Sigo.Models.NormaExternaViewModel
+
+@{
+    ViewData["Title"] = "Detalhe da Norma - " + Model.Titulo;
+}
+
+<h4 style="padding-top: 50px">@ViewData["Title"]</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <dl>
+            <dt>
+                @Html.DisplayNameFor(model => model.Codigo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Codigo)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Titulo)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Comite)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Comite)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Idioma)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Idioma)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataCadastro)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataCadastro)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataPublicacao)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataPublicacao)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.DataInicioValidade)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.DataInicioValidade)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ativo)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Ativo)
+            </dd>
+        </dl>
+
+        <div>
+            <a class="btn btn-secondary" href="javascript:window.history.back();">Voltar</a>
+        </div>
+    </div>
+</div>

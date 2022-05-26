@@ -1,0 +1,127 @@
+﻿@model IEnumerable<Sigo.Models.NormaInternaViewModel>
+@{
+    ViewData["Title"] = "Lista de Normas Internas";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+<vc:Summary></vc:Summary>
+
+<p style="display: inline-block;" supress-by-claim-name="Normas Internas" supress-by-claim-value="Adicionar">
+    @if (User.Claims.Any(x => x.Type == "Permissao" && x.Value.Split(",").Contains("PodeEscrever")))
+    {
+        <a class="btn btn-primary" asp-action="Create">Nova Norma</a>
+    }
+    else
+    {
+        <a style="display: inline-block; cursor: not-allowed; opacity:0.4" class="btn btn-primary" asp-action="">Nova Norma</a>
+    }
+</p>
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Codigo)
+                </th>
+                <th style="width:30%">
+                    @Html.DisplayNameFor(model => model.Titulo)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Autor)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ativo)
+                </th>
+                <th style="width:30%"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Codigo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Titulo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Autor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ativo)
+                    </td>
+                    <td class="text-right">
+                        <a class="btn btn-info" asp-controller="GestaoNormaInterna" asp-action="Details" asp-route-id="@item.Id"><spam class="fa fa-search"></spam> </a>
+                        @if (User.Claims.Any(x => x.Type == "Permissao" && x.Value.Split(",").Contains("PodeEscrever") && x.Value.Split(",").Contains("PodeExcluir")))
+                        {
+                            <a disable-by-claim-name="NormaExterna" disable-by-claim-value="Editar" class="btn btn-warning" asp-controller="GestaoNormaInterna" asp-action="Edit" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam> </a>
+                            <a disable-by-claim-name="NormaExterna" disable-by-claim-value="Excluir" class="btn btn-danger trigger-btn" data-toggle="modal" data-target="#deleteModal" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam> </a>
+                        }
+                        else
+                        {
+                            <a style="display: inline-block; cursor: not-allowed; opacity:0.4;" class="btn btn-warning" asp-route-id="@item.Id"><spam class="fa fa-pencil-alt"></spam> </a>
+                            <a style="display: inline-block; cursor: not-allowed; opacity:0.4;" class="btn btn-danger" asp-route-id="@item.Id"><spam class="fa fa-trash"></spam> </a>
+                        }
+
+                        <input id="idDeletar" hidden="hidden" value="@item.Id @item.Codigo" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal HTML -->
+<!-- Logout Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Você tem certeza?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Você está certo que quer deletar esse registro? <br /><span class="text-danger">Isso não poderá ser desfeito.</span></div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
+                <button id="deleteItem" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" data-path="/GestaoNormaInterna/Delete/">
+                    Deletar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+        var path_to_delete;
+        var root;
+        var param = $("#idDeletar").val();
+
+        $(function () {
+            $("#deleteItem").click(function () {
+
+                path_to_delete = $(this).data('path');
+                root = location.protocol + "//" + location.host
+
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: root + path_to_delete + '?id=' + param,
+                    dataType: "json",
+                    success: function (response) {
+                        location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,169 @@
+﻿@model Sigo.Models.ConsultoriaAcessoriaViewModel
+@using Sigo.Enums
+
+@{
+    ViewData["Title"] = "Consultorias e Acessorias";
+}
+
+<h3 style="padding-top: 50px">@ViewData["Title"] </h3>
+<hr />
+<br />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form enctype="multipart/form-data" asp-action="Create">
+
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="container">
+                    <fieldset>
+                        <h4>Área de negócio</h4>
+                    </fieldset>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label asp-for="TipoDepartamento" class="control-label"></label>
+                                <select asp-for="TipoDepartamento"
+                                        class="form-control"
+                                        asp-items="Html.GetEnumSelectList<TipoDepartamentoEnum>()">
+                                    <option value="">Selecione um tipo de departamento ...</option>
+                                </select>
+                                <span asp-validation-for="TipoDepartamento" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-1"></div>
+
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label asp-for="Setor" class="control-label"></label>
+                                <input asp-for="Setor" class="form-control" />
+                                <span asp-validation-for="Setor" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div><br />
+
+                <div class="container">
+                    <fieldset>
+                        <h4>Consultoria</h4>
+                    </fieldset>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label asp-for="RazaoSocial" class="control-label"></label>
+                                <input asp-for="RazaoSocial" class="form-control" />
+                                <span asp-validation-for="RazaoSocial" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Cnpj" class="control-label"></label>
+                                <input asp-for="Cnpj" class="form-control" />
+                                <span asp-validation-for="Cnpj" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="DataInicio" class="control-label"></label>
+                                <input asp-for="@Model.DataInicio" type="text" class="form-control calendar" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+                                <span asp-validation-for="DataInicio" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="Ativo" /> @Html.DisplayNameFor(model => model.Ativo)
+                                </label>
+                            </div>
+                        </div><br />
+
+                        <div class="col-sm-1"></div>
+
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <label asp-for="NomeFantasia" class="control-label"></label>
+                                <input asp-for="NomeFantasia" class="form-control" />
+                                <span asp-validation-for="NomeFantasia" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Periodo" class="control-label"></label>
+                                <input asp-for="Periodo" class="form-control" style="width: 20%" />
+                                <span asp-validation-for="Periodo" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="DataFim" class="control-label"></label>
+                                <input asp-for="@Model.DataFim" type="text" class="form-control calendar" value="@DateTime.Now.AddDays(10).ToString("dd/MM/yyyy")" />
+                                <span asp-validation-for="DataFim" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <fieldset>
+                        <h4>Plano de ação</h4>
+                    </fieldset>
+                    <hr />
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group" style="width: 40%">
+                                <label asp-for="IdTipoNormaExterna" class="control-label"></label>
+                                <select asp-for="IdTipoNormaExterna"
+                                        class="form-control"
+                                        asp-items="Model.TipoNormaExterna">
+                                    <option value="">Selecione um tipo de norma ...</option>
+                                </select>
+                                <span asp-validation-for="TipoNormaExterna" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Descricao" class="control-label"></label>
+                                <textarea class="form-control" asp-for="Descricao" rows="5" cols="40"></textarea>
+                                <span asp-validation-for="Descricao" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div><br />
+
+                    <div class="form-group">
+                        <input type="submit" value="Cadastrar" class="btn btn-success" />
+                        <a class="btn btn-secondary" asp-action="Index">Voltar</a>
+                    </div>
+                </div><br />
+
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            $('#Cnpj').mask('000.000.000-00', {
+                onKeyPress: function (cpfcnpj, e, field, options) {
+                    const masks = ['000.000.000-000', '00.000.000/0000-00'];
+                    const mask = (cpfcnpj.length > 14) ? masks[1] : masks[0];
+                    $('#Cnpj').mask(mask, options);
+                }
+            });
+
+            $('.calendar').datepicker({
+                showOn: "focus",
+                dateFormat: "dd/mm/yy",
+                dayNames: ["Domingo", "Segunda", "Terça", "Quarte", "Quinta", "Sexta", "Sábado"],
+                dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+            });
+        });
+    </script>
+}
