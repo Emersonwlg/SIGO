@@ -107,6 +107,7 @@ namespace Sigo.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Details(Guid id)
         {
+            // Obtem consultoria acessoria pelo id. 
             var consultoriaAcessoria = _mapper.Map<ConsultoriaAcessoriaViewModel>(await _consultoriaAcessoriaRepository.ObterPorId(id));
 
             if (consultoriaAcessoria == null) return NotFound();
