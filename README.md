@@ -50,6 +50,21 @@ Principais tecnologias e frameworks:
 
 ---
 
+# 🚀 Como Executar o Projeto
+
+1. Clonar o repositório:
+  > git clone https://github.com/Emersonwlg/SIGO
+
+2. Abrir o projeto no Visual Studio
+3. Configurar a connection string no arquivo appsettings.json
+4. Aplicar as migrations para criar o banco de dados:
+  > dotnet ef database update
+
+6. Executar o projeto:
+  > dotnet run
+
+---
+
 ## 🧩 Estrutura de Pastas (resumo)
 SIGO/
 
