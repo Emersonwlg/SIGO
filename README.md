@@ -52,28 +52,68 @@ Principais tecnologias e frameworks:
 
 ## 🧩 Estrutura de Pastas (resumo)
 SIGO/
+
 │
+
 ├── Controllers/
-│   ├── ClienteController.cs
-│   ├── ProdutoController.cs
-│   └── PedidoController.cs
+
+│   ├── ConsultoriaAcessoriaController.cs
+
+│   ├── GestaoNormaExternaController.cs
+
+│   ├── GestaoNormaInternaController.cs
+
+│   └── HomeController.cs
+
 │
+
 ├── Models/
+
 │   ├── Cliente.cs
+
 │   ├── Produto.cs
+
 │   └── Pedido.cs
+
 │
+
 ├── Views/
-│   ├── Cliente/
-│   ├── Produto/
-│   └── Pedido/
+
+│   ├── ArquivoViewModel/
+
+│   ├── BaseViewModel/
+
+│   ├── ConsultoriaAcessoriaViewModel/
+
+│   ├── ErrorViewModel/
+
+│   ├── NormaExternaViewModel/
+
+│   ├── ErrorViewModel/
+
+│   └── TokenViewModel/
+
 │
+
+├── Business/
+
+│   ├── Interfaces/
+
+│   ├── Models/
+
+│   └── Services/
+
+│
+
 ├── Data/
-│   ├── ApplicationDbContext.cs
-│
-├── Migrations/
-│
-└── appsettings.json
+
+│   ├── Context/
+
+│   ├── Mappings/
+
+│   ├── Migrations/
+
+│   └── Repository/
 
 
 
